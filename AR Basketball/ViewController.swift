@@ -31,11 +31,16 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         if let backboardNode = scene.rootNode.childNode(withName: "backboard", recursively: true) {
             backboardNode.position = SCNVector3(0, 0.5, -3)
+            
         }
         
         // Set the scene to the view
         sceneView.scene = scene
+
+        
     }
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -53,6 +58,38 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Pause the view's session
         sceneView.session.pause()
     }
+    
+    
+    @IBAction func tapped(_ sender: UITapGestureRecognizer) {
+        
+        if let camera = sceneView.session.currentFrame?.camera {
+            let cameraLocation = SCNVector3(camera.transform.columns.3.x, camera.transform.columns.3.y, camera.transform.columns.3.z)
+            let cameraOrientation = SCNVector3(-camera.transform.columns.2.x, -camera.transform.columns.2.y, -camera.transform.columns.2.z)
+            let cameraPosition = SCNVector3Make(cameraLocation.x + cameraOrientation.x, cameraLocation.y + cameraOrientation.y, cameraLocation.z + cameraOrientation.z)
+            
+            let ball = SCNSphere(radius: 0.15)
+            let material = SCNMaterial()
+            material.diffuse.contents = UIImage(named: "basketballSkin.png")
+            ball.materials = [material]
+            
+            let ballNode = SCNNode(geometry: ball)
+            ballNode.position = cameraPosition
+            
+            sceneView.scene.rootNode.addChildNode(ballNode)
+            
+            
+            let ballPhysics = SCNPhysicsBody(type: .dynamic, shape: nil)
+            ballPhysics.applyForce(SCNVector3(cameraPosition.x * 0, cameraPosition.y * 10, cameraPosition.z * 6), asImpulse: true)
+            ballNode.physicsBody = ballPhysics
+        }
+        
+        
+    }
+    
+    
+    
+    
+    
 
     // MARK: - ARSCNViewDelegate
     
