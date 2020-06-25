@@ -25,7 +25,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="27" translatesAutoresizingMaskIntoConstraints="NO" id="Rpe-bH-BOH">
                                 <rect key="frame" x="75" y="807" width="264" height="30"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Bk-XU-RIf">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Bk-XU-RIf" customClass="CustomButtons" customModule="AR_Basketball" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="70" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="9fK-65-0i0"/>
@@ -39,7 +39,7 @@
                                             <action selector="startHorizAction:" destination="BV1-FR-VrT" eventType="touchUpInside" id="bLM-yI-Vmx"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9lm-vd-TXN">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9lm-vd-TXN" customClass="CustomButtons" customModule="AR_Basketball" customModuleProvider="target">
                                         <rect key="frame" x="97" y="0.0" width="70" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="70" id="6fj-PT-ovN"/>
@@ -53,7 +53,7 @@
                                             <action selector="stopAction:" destination="BV1-FR-VrT" eventType="touchUpInside" id="OBy-nm-039"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BHT-e0-VFc">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BHT-e0-VFc" customClass="CustomButtons" customModule="AR_Basketball" customModuleProvider="target">
                                         <rect key="frame" x="194" y="0.0" width="70" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="70" id="aJ8-EF-LY3"/>
@@ -69,11 +69,11 @@
                                     </button>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lXa-YX-r4M">
-                                <rect key="frame" x="162" y="433" width="90" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lXa-YX-r4M" customClass="CustomButtons" customModule="AR_Basketball" customModuleProvider="target">
+                                <rect key="frame" x="148.5" y="419" width="117" height="58"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="M9H-J8-zPZ"/>
-                                    <constraint firstAttribute="width" constant="90" id="nVp-n9-7Ci"/>
+                                    <constraint firstAttribute="width" constant="117" id="Nxm-Hn-MVz"/>
+                                    <constraint firstAttribute="height" constant="58" id="Y76-Tf-XSr"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Add Hoop">

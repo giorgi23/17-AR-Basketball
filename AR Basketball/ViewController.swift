@@ -14,20 +14,21 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
     @IBOutlet weak var addHoopBtn: UIButton!
+    var cameraPlace = SCNVector3()
     
     var actionNode = SCNNode()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
+        //sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
         
         // Set the view's delegate
         sceneView.delegate = self
         
         
         // Show statistics such as fps and timing information
-        sceneView.showsStatistics = true
+        //sceneView.showsStatistics = true
         
         // Create a new scene
 
@@ -84,6 +85,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             let cameraLocation = SCNVector3(camera.transform.columns.3.x, camera.transform.columns.3.y, camera.transform.columns.3.z)
             let cameraOrientation = SCNVector3(-camera.transform.columns.2.x, -camera.transform.columns.2.y, -camera.transform.columns.2.z)
             let cameraPosition = SCNVector3Make(cameraLocation.x + cameraOrientation.x, cameraLocation.y + cameraOrientation.y, cameraLocation.z + cameraOrientation.z)
+            cameraPlace = cameraPosition
             
             let ball = SCNSphere(radius: 0.15)
             let material = SCNMaterial()
@@ -92,6 +94,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             
             let ballNode = SCNNode(geometry: ball)
             ballNode.position = cameraPosition
+            print(cameraPosition)
             
             sceneView.scene.rootNode.addChildNode(ballNode)
             
@@ -153,16 +156,24 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
     
     @IBAction func addHoopPressed(_ sender: UIButton) {
-        let scene = SCNScene(named: "art.scnassets/hoop.scn")!
         
-        if let backboardNode = scene.rootNode.childNode(withName: "backboard", recursively: true) {
-            backboardNode.position = SCNVector3(0, 0.5, -3)
+        actionNode.removeFromParentNode()
+        
+        let hoopScene = SCNScene(named: "art.scnassets/hoop.scn")!
+        
+        if let backboardNode = hoopScene.rootNode.childNode(withName: "backboard", recursively: true) {
+            backboardNode.removeFromParentNode()
             actionNode = backboardNode
+            
+            //sceneView.scene = hoopScene
+            backboardNode.position = SCNVector3(cameraPlace.x, cameraPlace.y + 0.5, cameraPlace.z - 3)
+            print(backboardNode.position)
+            
+            sceneView.scene.rootNode.addChildNode(backboardNode)
+
         }
-        
         // Set the scene to the view
-        sceneView.scene = scene
-        addHoopBtn.isHidden = true
+                addHoopBtn.isHidden = true
         
     }
     
