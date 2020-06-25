@@ -13,6 +13,9 @@ import ARKit
 class ViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
+    @IBOutlet weak var addHoopBtn: UIButton!
+    
+    var actionNode = SCNNode()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,20 +30,35 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.showsStatistics = true
         
         // Create a new scene
-        let scene = SCNScene(named: "art.scnassets/hoop.scn")!
+
         
-        if let backboardNode = scene.rootNode.childNode(withName: "backboard", recursively: true) {
-            backboardNode.position = SCNVector3(0, 0.5, -3)
-            
-        }
         
-        // Set the scene to the view
-        sceneView.scene = scene
+        
 
         
     }
     
+    func horizontalAction(node: SCNNode) {
+        
+        let leftAction = SCNAction.move(by: SCNVector3(-1, 0, 0), duration: 3)
+        let rightAction = SCNAction.move(by: SCNVector3(1, 0, 0), duration: 3)
+        
+        let actionSequence = SCNAction.sequence([leftAction, rightAction])
+        
+        node.runAction(SCNAction.repeat(actionSequence, count: 2))
+        
+    }
     
+    func roundAction(node: SCNNode) {
+        let rightUp = SCNAction.move(by: SCNVector3(1, 1, 0), duration: 2)
+        let Rightdown = SCNAction.move(by: SCNVector3(1, -1, 0), duration: 2)
+        let leftDown = SCNAction.move(by: SCNVector3(-1, -1, 0), duration: 2)
+        let leftUp = SCNAction.move(by: SCNVector3(-1, 1, 0), duration: 2)
+        
+        let roundSequence = SCNAction.sequence([rightUp,Rightdown,leftDown,leftUp])
+        
+        node.runAction(SCNAction.repeat(roundSequence, count: 2))
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -79,8 +97,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             
             
             let ballPhysics = SCNPhysicsBody(type: .dynamic, shape: nil)
-            ballPhysics.applyForce(SCNVector3(cameraPosition.x * 0, cameraPosition.y * 10, cameraPosition.z * 6), asImpulse: true)
+            ballPhysics.applyForce(SCNVector3(cameraPosition.x * 6, cameraPosition.y * 10, cameraPosition.z * 6), asImpulse: true)
             ballNode.physicsBody = ballPhysics
+            
         }
         
         
@@ -116,4 +135,37 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Reset tracking and/or remove existing anchors if consistent tracking is required
         
     }
+    
+    
+    @IBAction func startHorizAction(_ sender: UIButton) {
+        horizontalAction(node: actionNode)
+        
+    }
+    
+    @IBAction func stopAction(_ sender: UIButton) {
+        actionNode.removeAllActions()
+        
+    }
+    
+    @IBAction func roundAction(_ sender: UIButton) {
+        roundAction(node: actionNode)
+        
+    }
+    
+    @IBAction func addHoopPressed(_ sender: UIButton) {
+        let scene = SCNScene(named: "art.scnassets/hoop.scn")!
+        
+        if let backboardNode = scene.rootNode.childNode(withName: "backboard", recursively: true) {
+            backboardNode.position = SCNVector3(0, 0.5, -3)
+            actionNode = backboardNode
+        }
+        
+        // Set the scene to the view
+        sceneView.scene = scene
+        addHoopBtn.isHidden = true
+        
+    }
+    
+    
+    
 }
